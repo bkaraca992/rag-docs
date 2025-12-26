@@ -1,0 +1,11 @@
+fastapi==0.103.1
+uvicorn[standard]==0.22.0
+sentence-transformers==2.2.2
+faiss-cpu==1.7.4
+PyPDF2==3.0.1
+tqdm==4.66.1
+openai==0.29.2
+gradio==3.38.0
+python-multipart==0.0.6
+pydantic==1.10.11
+requests==2.31.0
