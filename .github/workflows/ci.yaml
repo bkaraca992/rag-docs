@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.10
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest
+      - name: Run simple smoke tests
+        run: |
+          # Simple smoke: check importability
+          python - <<'PY'
+import importlib, sys
+mods = ["sentence_transformers", "faiss", "fastapi"]
+for m in mods:
+    try:
+        importlib.import_module(m)
+        print("ok", m)
+    except Exception as e:
+        print("fail", m, e)
+        sys.exit(1)
+PY
